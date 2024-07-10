@@ -27,4 +27,3 @@ export const ErrorNotification: React.FC<Props> = ({
     </div>
   );
 };
-

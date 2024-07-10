@@ -46,7 +46,7 @@ export const App: React.FC = () => {
     });
   }, [todos, status]);
 
-  function addTodo({ title, userId, completed }: Todo) {
+  const  addTodo = ({ title, userId, completed }: Todo) => {
     handleErrorMessage('');
     setTempTodo({ title, userId, completed, id: 0 });
 
@@ -63,7 +63,7 @@ export const App: React.FC = () => {
       });
   }
 
-  function deleteTodo(id: number) {
+  const deleteTodo = (id: number) => {
     setProcessedId(ids => [...ids, id]);
 
     return todoApi
@@ -75,7 +75,7 @@ export const App: React.FC = () => {
       .finally(() => setProcessedId([]));
   }
 
-  function updateTodo(updatedTodo: Todo) {
+  const  updateTodo = (updatedTodo: Todo) => {
     setProcessedId(ids => [...ids, updatedTodo.id]);
 
     return todoApi

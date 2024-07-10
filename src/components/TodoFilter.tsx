@@ -29,6 +29,12 @@ export const TodoFilter: React.FC<Props> = ({
     Promise.allSettled(deleteTodos);
   };
 
+  const filterLinks = [
+    { status: Status.all, label: 'All', href: '#/' },
+    { status: Status.active, label: 'Active', href: '#/active' },
+    { status: Status.completed, label: 'Completed', href: '#/completed' },
+  ];
+
   return (
     <footer className="todoapp__footer" data-cy="Footer">
       <span className="todo-count" data-cy="TodosCounter">
@@ -36,38 +42,19 @@ export const TodoFilter: React.FC<Props> = ({
       </span>
 
       <nav className="filter" data-cy="Filter">
-        <a
-          href="#/"
-          className={classNames('filter__link', {
-            selected: status === Status.all,
-          })}
-          data-cy="FilterLinkAll"
-          onClick={() => setStatus(Status.all)}
-        >
-          All
-        </a>
-
-        <a
-          href="#/active"
-          className={classNames('filter__link', {
-            selected: status === Status.active,
-          })}
-          data-cy="FilterLinkActive"
-          onClick={() => setStatus(Status.active)}
-        >
-          Active
-        </a>
-
-        <a
-          href="#/completed"
-          className={classNames('filter__link', {
-            selected: status === Status.completed,
-          })}
-          data-cy="FilterLinkCompleted"
-          onClick={() => setStatus(Status.completed)}
-        >
-          Completed
-        </a>
+        {Object.values(Status).map((statusValue, index) => (
+          <a
+            key={index}
+            href={filterLinks[index].href}
+            className={classNames('filter__link', {
+              selected: status === statusValue,
+            })}
+            data-cy={`FilterLink${statusValue.charAt(0).toUpperCase() + statusValue.slice(1)}`}
+            onClick={() => setStatus(statusValue)}
+          >
+            {filterLinks[index].label}
+          </a>
+        ))}
       </nav>
 
       <button
